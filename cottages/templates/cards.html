@@ -1,0 +1,17 @@
+<div class="container">
+        <div class="card-deck">
+        {% for i in cottages %}
+        <div class="card text-center col-4">
+
+            <p class="card-name"> {{ i }}</p>
+            <hr/>
+            <p>Počet míst: {{ i.spaces }}</p>
+
+            <p>{{ i.address }}</p>
+
+            <p>{{ i.description }}</p>
+
+        </div>
+        {% endfor %}
+        </div>
+    </div>

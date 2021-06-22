@@ -16,6 +16,16 @@ class Right(models.Model):
 '''
 
 
+class MyUser(models.Model):
+    user = models.OneToOneField(User, unique=True, null=False, blank=False, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["user"]
+
+    def __str__(self):
+        return f"{self.user.username}"
+
+
 class Address(models.Model):
     town = models.CharField(max_length=40, unique=False, verbose_name="Town")
     street = models.CharField(max_length=40, unique=False, verbose_name="Street")
@@ -34,7 +44,7 @@ class Cottage(models.Model):
     spaces = models.IntegerField(blank=False, null=False, help_text="Enter a number of spaces the cottage has",
                                  verbose_name="Spaces")
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, blank=False, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["name"]
@@ -46,7 +56,7 @@ class Cottage(models.Model):
 class GroupMember(models.Model):
     name = models.CharField(max_length=100, unique=False, verbose_name="Name")
     is_child = models.BooleanField(default=False, verbose_name="Is this mamber a child")
-    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, blank=False, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["name"]
@@ -59,9 +69,12 @@ class Reservation(models.Model):
     start_date = models.DateField(verbose_name="Start date")
     end_date = models.DateField(verbose_name="End date")
     is_private = models.BooleanField(default=True)
-    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, blank=False, on_delete=models.CASCADE)
     members = models.ManyToManyField(GroupMember)
     cottage = models.ForeignKey(Cottage, blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.cottage}, {self.user}, {self.start_date} - {self.end_date}"
+
+
+

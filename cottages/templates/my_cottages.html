@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block header %}
+    <div></div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card text-center col-4">
+        {% for i in cottages %}
+            <p class="card-name">{{ i }}</p>
+            <hr/>
+            <p>Počet míst: {{ i.spaces }}</p>
+
+            <p>{{ i.address }}</p>
+
+            <p>{{ i.description }}</p>
+
+
+        {% endfor %}
+        </div>
+    </div>
+
+{% if cottage_num > 3 %}
+    <div class="card-deck">
+</div>
+{% endif %}
+{% endblock %}
