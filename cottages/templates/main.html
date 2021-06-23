@@ -1,7 +1,12 @@
 {% extends "index.html" %}
 
+{% block header %}
+        {% include "header.html" %}
+    {% endblock %}
+
 {% block content %}
 
     {% include "cards.html" %}
 
+    <div><a href="{% url 'new_cottage' %}">Vytvořit novou chatu</a> </div>
 {% endblock %}

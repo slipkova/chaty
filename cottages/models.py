@@ -44,7 +44,7 @@ class Cottage(models.Model):
     spaces = models.IntegerField(blank=False, null=False, help_text="Enter a number of spaces the cottage has",
                                  verbose_name="Spaces")
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["name"]

@@ -28,10 +28,28 @@ def my_cottages(request):
     cottages = Cottage.objects.all()
     return render(request, 'my_cottages.html', context={})
 
-
 def registration(request):
-    return render(request, 'register.html', context={})
+    return render(request, 'login/register.html', context={})
+
+def login(request):
+    return render(request, 'login/login.html', context={})
+
+def cottage_detail(request, id):
+    cottage = get_object_or_404(Cottage, id=id)
+    return render(request, 'cottage_detail.html', context={'c': cottage})
 
 
-def cottage_detail(request):
-    return render(request, 'cottage_detail.html', context={})
+class CottageCreate(CreateView):
+    model = Cottage
+    fields = ['name', 'spaces', 'description', 'address', 'user']
+    success_url = reverse_lazy('index')
+
+
+class CottageUpdate(UpdateView):
+    model = Cottage
+    fields = '__all__'
+
+
+class CottageDeleteView(DeleteView):
+    model = Cottage
+    success_url = reverse_lazy('index')
